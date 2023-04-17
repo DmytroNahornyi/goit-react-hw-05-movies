@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, Outlet } from 'react-router-dom';
-import movieAPI from '../Services/MovieAPI';
-import FilmDetails from '../FilmDetails/FilmDetails';
+import movieAPI from '../../components/Services/MovieAPI';
+import FilmDetails from '../../components/FilmDetails/FilmDetails';
 import Cast from '../Cast/Cast';
 import Reviews from '../Reviews/Reviews';
 

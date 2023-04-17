@@ -2,11 +2,11 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './Header/Header';
 
-const Home = lazy(() => import('./Home/Home'));
-const Movies = lazy(() => import('./Movies/Movies'));
-const MovieDetails = lazy(() => import('./MovieDetails/MovieDetails'));
-const Cast = lazy(() => import('./Cast/Cast'));
-const Reviews = lazy(() => import('./Reviews/Reviews'));
+const Home = lazy(() => import('../Pages/Home/Home'));
+const Movies = lazy(() => import('../Pages/Movies/Movies'));
+const MovieDetails = lazy(() => import('../Pages/MovieDetails/MovieDetails'));
+const Cast = lazy(() => import('../Pages/Cast/Cast'));
+const Reviews = lazy(() => import('../Pages/Reviews/Reviews'));
 
 function App() {
   return (
@@ -27,6 +27,5 @@ function App() {
     </Router>
   );
 }
-
 
 export default App;
