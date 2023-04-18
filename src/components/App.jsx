@@ -10,7 +10,7 @@ const Reviews = lazy(() => import('../Pages/Reviews/Reviews'));
 
 function App() {
   return (
-    <Router>
+    <Router basename="/">
       <div>
         <Header />
         <Suspense fallback={<div>Loading...</div>}>
@@ -18,8 +18,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/movies" element={<Movies />} />
             <Route path="/movies/:movieId/*" element={<MovieDetails />}>
-              <Route path="cast" element={<Cast />} />
-              <Route path="reviews" element={<Reviews />} />
+              <Route path="./cast" element={<Cast />} />
+              <Route path="./reviews" element={<Reviews />} />
             </Route>
           </Routes>
         </Suspense>
