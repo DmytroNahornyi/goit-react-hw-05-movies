@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Outlet, NavLink } from 'react-router-dom';
 import movieAPI from '../../components/Services/MovieAPI';
 import FilmDetails from '../../components/FilmDetails/FilmDetails';
-// import Cast from '../Cast/Cast';
-// import Reviews from '../Reviews/Reviews';
+import Cast from '../Cast/Cast';
+import Reviews from '../Reviews/Reviews';
 import {
   MovieDetailsContainer,
   MovieDetailsContent,
@@ -42,21 +42,16 @@ const MovieDetails = () => {
         <Navigation>
           <ul>
             <li>
-              <NavLink to={`/movies/${movieId}/cast`} activeClassName="active">
-                Cast
-              </NavLink>
+              <NavLink to={`/movies/${movieId}/cast`}>Cast</NavLink>
             </li>
             <li>
-              <NavLink
-                to={`/movies/${movieId}/reviews`}
-                activeClassName="active"
-              >
-                Reviews
-              </NavLink>
+              <NavLink to={`/movies/${movieId}/reviews`}>Reviews</NavLink>
             </li>
           </ul>
         </Navigation>
-        <Outlet />
+        <Outlet>
+          <Cast movieId={movieId} />
+        </Outlet>
       </MovieDetailsContent>
     </MovieDetailsContainer>
   );

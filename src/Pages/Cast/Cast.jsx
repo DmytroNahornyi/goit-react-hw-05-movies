@@ -6,16 +6,26 @@ function Cast({ movieId }) {
   const [cast, setCast] = useState([]);
 
   useEffect(() => {
+    if (!movieId) {
+      console.log('No movieId provided');
+      return;
+    }
+
     const fetchMovieCast = async () => {
       try {
         const { cast } = await movieAPI.fetchMovieCast(movieId);
         setCast(cast);
       } catch (error) {
-        console.log(error);
+        console.log('Error fetching movie cast:', error);
       }
     };
+
     fetchMovieCast();
   }, [movieId]);
+
+  if (!movieId) {
+    return <p>No movieId provided</p>;
+  }
 
   return (
     <>
