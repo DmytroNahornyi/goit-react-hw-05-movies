@@ -34,40 +34,50 @@ const Movies = () => {
     }
   }, [location.search]);
 
-  const handleSearchFormSubmit = async event => {
-    event.preventDefault();
-    try {
-      setLoading(true);
-      const { results } = await MovieAPI.searchMovies(searchQuery);
-      setMovies(results);
-      // сохраняем поисковый запрос в query parameter
-      window.history.pushState(null, null, `/movies?query=${searchQuery}`);
-    } catch (error) {
-      console.error(error);
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+const handleSearchFormSubmit = async event => {
+  event.preventDefault();
+  try {
+    setLoading(true);
+    const { results } = await MovieAPI.searchMovies(searchQuery);
+    setMovies(results);
+    // перенаправляем пользователя на новую страницу с поисковым запросом
+    setTimeout(() => {
+      window.location.replace(`/movies?query=${searchQuery}`);
+    }, 1000);
+  } catch (error) {
+    console.error(error);
+    setError(error.message);
+  } finally {
+    setLoading(false);
+  }
+};
 
-  useEffect(() => {
-    const handlePopstate = event => {
-      const queryParams = new URLSearchParams(window.location.search);
-      const query = queryParams.get('query') || '';
-      setSearchQuery(query);
-      if (query) {
-        setLoading(true);
-        MovieAPI.searchMovies(query)
-          .then(({ results }) => setMovies(results))
-          .catch(error => setError(error.message))
-          .finally(() => setLoading(false));
-      } else {
-        setMovies([]);
+
+useEffect(() => {
+  async function handlePopstate(event) {
+    const queryParams = new URLSearchParams(window.location.search);
+    const query = queryParams.get('query') || '';
+    setSearchQuery(query);
+    if (query) {
+      setLoading(true);
+      try {
+        const { results } = await MovieAPI.searchMovies(query);
+        setMovies(results);
+      } catch (error) {
+        console.error(error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
       }
-    };
-    window.addEventListener('popstate', handlePopstate);
-    return () => window.removeEventListener('popstate', handlePopstate);
-  }, []);
+    } else {
+      setMovies([]);
+    }
+  }
+  window.addEventListener('popstate', handlePopstate);
+  return () => window.removeEventListener('popstate', handlePopstate);
+}, []);
+
+
 
   const handleGoBackClick = useCallback(() => {
     window.history.back();
