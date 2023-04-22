@@ -1,31 +1,12 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import {
-  HeaderWrapper,
-  Navigation,
-//   Logo,
-  NavList,
-  NavItem,
-  NavLink,
-} from './Header.styles';
+import { StyledLink, StyledNav, WrapHeader } from './Header.styled';
 
-const Header = () => {
-  const location = useLocation();
+export const Header = () => {
   return (
-    <HeaderWrapper>
-      <Navigation>
-        {/* <Logo>Movies</Logo> */}
-        <NavList>
-          <NavItem className={location.pathname === '/' ? 'active' : ''}>
-            <NavLink to="/" >Home</NavLink>
-          </NavItem>
-          <NavItem className={location.pathname === '/movies' ? 'active' : ''}>
-            <NavLink to="/movies">Movies</NavLink>
-          </NavItem>
-        </NavList>
-      </Navigation>
-    </HeaderWrapper>
+    <WrapHeader>
+      <StyledNav>
+        <StyledLink to="/">Home</StyledLink>
+        <StyledLink to="/movies">Movies</StyledLink>
+      </StyledNav>
+    </WrapHeader>
   );
 };
-
-export default Header;
